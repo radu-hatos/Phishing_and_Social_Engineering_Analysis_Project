@@ -88,7 +88,7 @@ I opened the real Bootstrap “signin” page, right-clicked and chose “View p
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%206.PNG" alt="Figure 6" width="100%">
+  <img src="https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Code%20listing%201.PNG">
 </p>
 
 
