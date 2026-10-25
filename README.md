@@ -91,4 +91,38 @@ I opened the real Bootstrap “signin” page, right-clicked and chose “View p
   <img src="https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Code%20listing%201.PNG">
 </p>
 
+### 4.3 Building the Credential-Capture Script (server.php)
+I wrote server.php in Notepad++ and saved it in the same folder as the HTML file. When the user submits the fake form, this script connects to the bootstrap database as whitehat, reads the email and password from the request, and stores them in the usuario table using a prepared statement. After saving, it redirects the user to the real website, so they assume they just logged in normally and notice nothing. One point worth making: the password is stored in plain text, so it can be read directly. A real website would never do this — it would store only a scrambled (hashed) version. This is exactly what makes phishing dangerous: the attacker ends up with the real password inmreadable form.
+
+<p align="center">
+  <img src="https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Figure%207.PNG">
+</p>
+
+<p align="center">
+  <img src="[https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Figure%207.PNG](https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Code%20listing%202.PNG)">
+</p>
+
+### 4.4 Test and Result
+To test it, I opened the fake page at http://localhost/bootstrap/bootstrapsignin.html and entered a fake email, platanos@123.com, and a fake password, 1234, then clicked Sign in. The page redirected me straight to the real Bootstrap signin page, with nothing on screen to show that anything had been saved. At the same time, in phpMyAdmin, the email and password were there in the usuario table. So it worked: the data entered on the fake page is captured before the user is sent on to the real site. This shows the whole attack chain working, on my own computer and with fake data.
+
+<p align="center">
+  <img src="[[https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Figure%207.PNG](https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Code%20listing%202.PNG)](https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Figure%208.PNG)">
+</p>
+
+### 4.5 Delivery and the Social-Engineering Vector
+A fake page only works if you can get people to open it and enter their real password — this is the social-engineering part. In a real attack, the fake page would be hosted on a web address that looks almost identical to the real one, usually with a small spelling change or an extra word. The link is then sent out with a message designed to make people worried or rushed — for example an email that appears to come from the company (“There is a problem with your account, log in now”), an SMS, or a message on social media. The victim clicks the link, sees a normal looking login page, enters their credentials, is redirected to the real site, and never notices. I included this section to show how the technique is actually used. Understanding it also helps you defend against it: check the address for small mistakes, be wary of login pages you did not ask for, and do not trust messages that try to rush you.
+
+---
+
+## 5. Skills Demonstrated
+
+
+
+
+
+
+
+
+
+
 
