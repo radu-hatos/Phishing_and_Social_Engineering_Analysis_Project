@@ -77,52 +77,18 @@ I downloaded and installed XAMPP from apachefriends.org and started the Apache a
 </p>
 
 ### 4.2 Cloning the Legitimate Login Page
-I opened the real Bootstrap "signin" page, viewed its source code, and saved it as `bootstrapsignin.html` inside `C:\xampp-\htdocs\bootstrap`[cite: 11]. I changed the form action to `server.php` so credentials get sent to my script[cite: 11].
+I opened the real Bootstrap “signin” page, right-clicked and chose “View page source”, and copied the code. Then I pasted it into Notepad++, tidied the formatting, and saved it as bootstrapsignin.html in the C:\xampp- \htdocs\bootstrap folder, so Apache serves it at http://localhost/bootstrap/bootstrapsignin.html. The one important change is in the form: I set its action to server.php, so that when the user clicks “Sign in” the email and password are sent to my PHP script instead of to the real login. The fake page looks identical to the original.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%205.PNG" alt="Figure 5" width="100%">
-  <br><em>Figure 5 — bootstrapsignin.html saved in the htdocs bootstrap working directory[cite: 11].</em>
 </p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%206.PNG" alt="Figure 6" width="100%">
-  <br><em>Figure 6 — The cloned fake login page, visually identical to the legitimate form[cite: 12].</em>
 </p>
 
-#### Code Listing 1 (`bootstrapsignin.html`)
-```html
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Phishing simulation for educational purposes">
-<meta name="author" content="Your Name">
-<title>Signin Template for Bootstrap</title>
-<!-- Bootstrap core CSS via CDN -->
-<link href="[https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css](https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css)" rel="stylesheet">
-<style>
-body { display: flex; align-items: center; justify-content: center;
-height: 100vh; background-color: #f5f5f5; }
-.form-signin { width: 100%; max-width: 330px; padding: 15px; margin: auto; }
-</style>
-</head>
-<body class="text-center">
-<form class="form-signin" method="POST" action="server.php">
-<img class="mb-4" src="[https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg](https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg)"
-alt="Bootstrap Logo" width="72" height="72">
-<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-<label for="inputEmail" class="sr-only">Email address</label>
-<input type="email" name="mail" id="inputEmail" class="form-control"
-placeholder="Email address" required autofocus>
-<label for="inputPassword" class="sr-only">Password</label>
-<input type="password" name="pass" id="inputPassword" class="form-control"
-placeholder="Password" required>
-<div class="checkbox mb-3">
-<label><input type="checkbox" value="remember-me"> Remember me</label>
-</div>
-<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-<p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-</form>
-</body>
-</html>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%206.PNG" alt="Figure 6" width="100%">
+</p>
+
+
