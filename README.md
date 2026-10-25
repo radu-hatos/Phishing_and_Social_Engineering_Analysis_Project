@@ -116,6 +116,23 @@ A fake page only works if you can get people to open it and enter their real pas
 
 ## 5. Skills Demonstrated
 
+* Installing and using XAMPP (Apache, MySQL, phpMyAdmin) locally
+* Creating a MySQL database, table and user in phpMyAdmin
+* Cloning a web page from its source and modifying the form (HTML)
+* Writing a PHP script that stores form data in a database
+* Understanding the full phishing attack chain: fake page → capture → redirect
+* Knowing how fake pages are delivered and how to spot the warning signs
+* Understanding why plain-text password storage is unsafe and why real sites hash passwords
+* Clear technical documentation of a practical exercise with screenshots
+
+---
+
+## 6. Tools Used
+
+* XAMPP (Apache, MySQL, phpMyAdmin)
+* Notepad++
+* Bootstrap 4 “signin” template
+* PHP (MySQLi)
 
 
 
