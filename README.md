@@ -1,1 +1,132 @@
-# Phishing_and_Social_Engineering_Analysis_Project
+<h1 align="center">Phishing and Social Engineering Analysis Project</h1>
+
+<p align="center">
+  <b>[ EN ]</b> Simulating a Fake Login Page to Capture User Credentials - XAMPP, PHP & MySQL
+</p>
+
+<p align="center">
+  📄 <b>Download PDF Documentation:</b><br>
+  [ EN ] <a href="https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Phishing_and_Social_Engineering_Analysis_Project.pdf"><b>[ English Version PDF ]</b></a><br>
+  [ ES ] <a href="https://github.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/blob/main/Analisis_Practico_de_Tecnicas_de_Phishing_e_Ingenieria_Social.pdf"><b>[ Versión en Español PDF ]</b></a>
+</p>
+
+<hr>
+
+## 📋 Index
+
+- [1. Introduction](#1-introduction)
+- [2. Objective](#2-objective)
+- [3. Environment](#3-environment)
+- [4. Work Performed](#4-work-performed)
+  - [4.1 XAMPP Setup and Database Preparation](#41-xampp-setup-and-database-preparation)
+  - [4.2 Cloning the Legitimate Login Page](#42-cloning-the-legitimate-login-page)
+  - [4.3 Building the Credential-Capture Script (server.php)](#43-building-the-credential-capture-script-serverphp)
+  - [4.4 Test and Result](#44-test-and-result)
+  - [4.5 Delivery and the Social-Engineering Vector](#4.5-delivery-and-the-social-engineering-vector)
+- [5. Skills Demonstrated](#5-skills-demonstrated)
+- [6. Tools Used](#6-tools-used)
+
+---
+
+## 1. Introduction
+
+This is an ethical-hacking exercise about how a phishing attack works[cite: 9]. The idea behind phishing is to build a fake login page that looks like a real one, so the user believes it is genuine and enters their email and password[cite: 9]. A small PHP script saves whatever they submit, and then the page redirects them to the real website, so they notice nothing[cite: 9]. I carried the whole thing out on my own computer, using a test database and fake data, so no real person was affected and nothing illegal was done[cite: 9]. The aim is to understand how the attack works in order to recognize it and defend against it[cite: 9].
+
+---
+
+## 2. Objective
+
+Build a fake login page in a controlled local environment and show how it can capture a user's credentials[cite: 9]. The steps are: clone the public Bootstrap "signin" example page to make a fake login form that looks identical, write a PHP script that stores the email and password the user submits in a MySQL database, redirect the user to the real website afterwards so the deception goes unnoticed, and explain how a fake page like this would be delivered to people in practice[cite: 9].
+
+---
+
+## 3. Environment
+
+Everything runs on a single Windows computer using XAMPP, which provides the web server and the database[cite: 9]. The server and the database run only on my computer[cite: 9].
+
+| Tool | Role in the exercise |
+| :--- | :--- |
+| **XAMPP (Apache)** | Local web server that runs the fake page and the PHP script[cite: 9] |
+| **XAMPP (MySQL)** | Database that stores the captured email and password[cite: 9] |
+| **phpMyAdmin** | Web interface for creating the database, table and user, and checking the captured data[cite: 9] |
+| **Notepad++** | Editor used to write the `.html` and `.php` files[cite: 9] |
+| **Bootstrap 4 "signin" template** | Public example page cloned to build the fake one[cite: 9] |
+| **Working folder** | `C:\xampp-\htdocs\bootstrap` (holds the `.html` and `.php` files)[cite: 9] |
+
+---
+
+## 4. Work Performed
+
+### 4.1 XAMPP Setup and Database Preparation
+I downloaded and installed XAMPP and started the Apache and MySQL modules[cite: 9]. In phpMyAdmin I created a database called `bootstrap` and a table called `usuario` with two columns (`mail` and `pass`)[cite: 9, 10]. Then, under the Privileges tab, I created a MySQL user called `whitehat` so the PHP script can connect to the database[cite: 10].
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%201.PNG" alt="Figure 1" width="100%">
+  <br><em>Figure 1 — XAMPP Control Panel with the Apache and MySQL modules started[cite: 10].</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%202.PNG" alt="Figure 2" width="100%">
+  <br><em>Figure 2 — localhost opened from the Apache module (htdocs directory listing)[cite: 10].</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%203.PNG" alt="Figure 3" width="100%">
+  <br><em>Figure 3 — phpMyAdmin: the bootstrap database with the usuario table[cite: 11].</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%204.PNG" alt="Figure 4" width="100%">
+  <br><em>Figure 4 — Creating the whitehat MySQL user under the Privileges tab[cite: 11].</em>
+</p>
+
+### 4.2 Cloning the Legitimate Login Page
+I opened the real Bootstrap "signin" page, viewed its source code, and saved it as `bootstrapsignin.html` inside `C:\xampp-\htdocs\bootstrap`[cite: 11]. I changed the form action to `server.php` so credentials get sent to my script[cite: 11].
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%205.PNG" alt="Figure 5" width="100%">
+  <br><em>Figure 5 — bootstrapsignin.html saved in the htdocs bootstrap working directory[cite: 11].</em>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/radu-hatos/Phishing_and_Social_Engineering_Analysis_Project/main/Figure%206.PNG" alt="Figure 6" width="100%">
+  <br><em>Figure 6 — The cloned fake login page, visually identical to the legitimate form[cite: 12].</em>
+</p>
+
+#### Code Listing 1 (`bootstrapsignin.html`)
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Phishing simulation for educational purposes">
+<meta name="author" content="Your Name">
+<title>Signin Template for Bootstrap</title>
+<!-- Bootstrap core CSS via CDN -->
+<link href="[https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css](https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css)" rel="stylesheet">
+<style>
+body { display: flex; align-items: center; justify-content: center;
+height: 100vh; background-color: #f5f5f5; }
+.form-signin { width: 100%; max-width: 330px; padding: 15px; margin: auto; }
+</style>
+</head>
+<body class="text-center">
+<form class="form-signin" method="POST" action="server.php">
+<img class="mb-4" src="[https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg](https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg)"
+alt="Bootstrap Logo" width="72" height="72">
+<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+<label for="inputEmail" class="sr-only">Email address</label>
+<input type="email" name="mail" id="inputEmail" class="form-control"
+placeholder="Email address" required autofocus>
+<label for="inputPassword" class="sr-only">Password</label>
+<input type="password" name="pass" id="inputPassword" class="form-control"
+placeholder="Password" required>
+<div class="checkbox mb-3">
+<label><input type="checkbox" value="remember-me"> Remember me</label>
+</div>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+<p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+</form>
+</body>
+</html>
